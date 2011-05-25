@@ -459,6 +459,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				SDKROOT = macosx10.6;
+				SKIP_INSTALL = YES;
 				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Debug;
@@ -481,6 +482,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				SDKROOT = macosx10.6;
+				SKIP_INSTALL = YES;
 				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Release;
