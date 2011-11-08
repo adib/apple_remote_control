@@ -284,14 +284,20 @@ const char* AppleRemoteDeviceName = "AppleIRController";
 	if (root != MACH_PORT_NULL) {
 		CFArrayRef arrayRef = IORegistryEntrySearchCFProperty(root, kIOServicePlane, CFSTR("IOConsoleUsers"), NULL, kIORegistryIterateRecursively);
 		if (arrayRef != NULL) {
-			NSArray* array = (NSArray*)arrayRef;
-			unsigned int i;
-			for(i=0; i < [array count]; i++) {
-				NSDictionary* dict = [array objectAtIndex:i];
-				if ([[dict objectForKey: @"kCGSSessionUserNameKey"] isEqual: NSUserName()]) {
-					returnValue = ([dict objectForKey:@"kCGSSessionSecureInputPID"] != nil);
-				}
-			}
+            // arratRef may not be an array (found a crash log in which this is an NSCFString)
+
+            CFTypeID arrayType = CFArrayGetTypeID();
+            if (CFGetTypeID(arrayRef) == arrayType) {                NSArray* array = (NSArray*)arrayRef;
+                
+                unsigned int i;
+                for(i=0; i < [array count]; i++) {
+                    NSDictionary* dict = [array objectAtIndex:i];
+                    if ([[dict objectForKey: @"kCGSSessionUserNameKey"] isEqual: NSUserName()]) {
+                        returnValue = ([dict objectForKey:@"kCGSSessionSecureInputPID"] != nil);
+                    }
+                }
+            }
+            
 			CFRelease(arrayRef);
 		}
 		IOObjectRelease(root);
