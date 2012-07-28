@@ -145,8 +145,9 @@ const char* AppleRemoteDeviceName = "AppleIRController";
 		}
 		IOObjectRelease(foundRemoteDevice);
 	}
+    const double appKitVersion = floor(NSAppKitVersionNumber);
 	
-	if (floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_4) {
+	if (appKitVersion <= NSAppKitVersionNumber10_4) {
 		// 10.4.x Tiger
 		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonPlus]		forKey:@"14_12_11_6_"];
 		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonMinus]		forKey:@"14_13_11_6_"];
@@ -159,7 +160,7 @@ const char* AppleRemoteDeviceName = "AppleIRController";
 		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonMenu_Hold]	forKey:@"14_6_14_6_"];
 		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonPlay_Hold]	forKey:@"18_14_6_18_14_6_"];
 		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteControl_Switched]	forKey:@"19_"];
-	} else if ((floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_5) || (leopardEmulation)) {
+	} else if (appKitVersion <= NSAppKitVersionNumber10_5 || leopardEmulation) {
 		// 10.5.x Leopard
 		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonPlus]		forKey:@"31_29_28_19_18_"];
 		[_cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonMinus]		forKey:@"31_30_28_19_18_"];
