@@ -89,9 +89,9 @@
 	return hidDevice;
 }
 
-- (id) initWithDelegate: (id) _remoteControlDelegate {	
+- (id) initWithDelegate: (id) _remoteControlDelegate {
 	if ([[self class] isRemoteAvailable] == NO) {
-		[super dealloc];
+        [self release];
 		self = nil;
 	} else if ( (self = [super initWithDelegate: _remoteControlDelegate]) ) {
 		openInExclusiveMode = YES;
